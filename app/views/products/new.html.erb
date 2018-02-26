@@ -1,7 +1,8 @@
 <div class="container">
   <h1>Add new product</h1>
   <%= simple_form_for @product do |f| %>
-    <%= f.input :title, placeholder: "Product name" %>
+    <%= f.input :title %>
+    <%= f.input :description  %>
     <%= f.input :picture %>
     <%= f.input :picture_cache, as: :hidden %>
     <%= f.button :submit %>
