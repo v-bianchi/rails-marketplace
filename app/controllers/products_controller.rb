@@ -13,9 +13,10 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new
+    @product = Product.new(product_params)
+
     if @product.save
-      redirect_to @product
+      redirect_to product_path(@product)
     else
       render :new
     end
@@ -25,8 +26,8 @@ class ProductsController < ApplicationController
   end
 
   def update
-    if @product.update
-      redirect_to @product
+    if @product.update(product_params)
+      redirect_to product_path(@product)
     else
       render :update
     end
@@ -43,7 +44,7 @@ class ProductsController < ApplicationController
   end
 
   def find_product
-    @product.find(product_params)
+    @product = Product.find(params[:id])
   end
 
 end
