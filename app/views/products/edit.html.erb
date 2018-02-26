@@ -1,2 +1,9 @@
-<h1>Products#edit</h1>
-<p>Find me in app/views/products/edit.html.erb</p>
+<div class="container">
+  <h1>Edit product</h1>
+  <%= simple_form_for @product do |f| %>
+    <%= f.input :title, placeholder: "Product name" %>
+    <%= f.input :picture %>
+    <%= f.input :picture_cache, as: :hidden %>
+    <%= f.button :submit %>
+  <% end %>
+</div>

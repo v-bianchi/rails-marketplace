@@ -1,2 +1,18 @@
-<h1>Products#show</h1>
-<p>Find me in app/views/products/show.html.erb</p>
+<div class="container">
+  <h1><%= @product.title %></h1>
+  <%= cl_image_tag @product.picture %>
+  <br>
+  <p><%= @product.description %></p>
+  <h3>Reviews</h3>
+  <% @product.reviews.each do |elt| %>
+  <li class="list-group-item">
+    <h4>
+      <% elt.rating.times do %>
+        <i class="fa fa-star"></i>
+      <% end %>
+    </h4>
+    <p><%= elt.content %></p>
+  </li>
+  <% end %>
+
+</div>
