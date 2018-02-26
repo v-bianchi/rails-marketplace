@@ -1,5 +1,6 @@
 <div class="container">
   <h1><%= @product.title %></h1>
+  <p>Posted by: <%= @product.user.email %></p>
   <%= cl_image_tag @product.picture %>
   <br>
   <p><%= @product.description %></p>
