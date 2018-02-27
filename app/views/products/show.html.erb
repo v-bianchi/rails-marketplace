@@ -23,8 +23,10 @@
   </li>
   <% end %>
 
-  <%= link_to "Back to index", products_path %><br>
+  <%= link_to "Add review", new_product_review_path(@product) %>
+  <p></p>
   <%= link_to "Edit", edit_product_path(@product) %><br>
-  <%= link_to "Delete", product_path(@product), method: :delete %><br>
-
+  <%= link_to "Delete", product_path(@product), method: :delete %>
+  <p></p>
+  <%= link_to "Back to index", products_path %><br>
 </div>
