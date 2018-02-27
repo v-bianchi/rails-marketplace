@@ -7,9 +7,10 @@
   <h3>Reviews</h3>
   <% @product.reviews.each do |elt| %>
   <li class="list-group-item">
+    <h3><%= elt.user.email %></h3>
     <h4>
       <% elt.rating.times do %>
-        <i class="fa fa-star"></i>
+        <i class="fa fa-star gold"></i>
       <% end %>
     </h4>
     <p><%= elt.content %></p>
