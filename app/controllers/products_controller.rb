@@ -2,19 +2,21 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @products = Product.all
+    @products = policy_scope(Product).all
   end
 
   def show
+    authorize @product
   end
 
   def new
     @product = Product.new
+    authorize @product
   end
 
   def create
-    @product = Product.new(product_params)
-    @product.user = current_user
+    @product = current_user.products.build(product_params)
+    authorize @product
     if @product.save!
       redirect_to product_path(@product)
     else
@@ -23,9 +25,11 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    authorize @product
   end
 
   def update
+    authorize @product
     if @product.update!(product_params)
       redirect_to product_path(@product)
     else
@@ -34,8 +38,8 @@ class ProductsController < ApplicationController
   end
 
   def destroy
+    authorize @product
     @product.destroy
-
     redirect_to products_path
   end
 
@@ -47,6 +51,7 @@ class ProductsController < ApplicationController
 
   def find_product
     @product = Product.find(params[:id])
+    authorize @product
   end
 
 end

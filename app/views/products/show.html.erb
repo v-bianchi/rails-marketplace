@@ -1,7 +1,7 @@
 <div class="container">
   <h1><%= @product.title %></h1>
 
-  <p>Posted by: <%= @product.user.email %></p>
+  <p>Posted by: <%= @product.user.username %></p>
 
   <% unless @product.picture.nil? %>
     <%= cl_image_tag @product.picture, height: 300, width: 400, crop: :fill %>
@@ -13,7 +13,7 @@
   <h3>Reviews</h3>
   <% @product.reviews.each do |elt| %>
   <li class="list-group-item">
-    <h4><%= elt.user.email %></h4>
+    <h4><%= elt.user.username %></h4>
     <h4>
       <% elt.rating.times do %>
         <i class="fa fa-star gold"></i>
@@ -25,8 +25,12 @@
 
   <%= link_to "Add review", new_product_review_path(@product) %>
   <p></p>
+  <% if policy(@product).edit? %>
   <%= link_to "Edit", edit_product_path(@product) %><br>
+  <% end %>
+    <% if policy(@product).destroy? %>
   <%= link_to "Delete", product_path(@product), method: :delete %>
+    <% end %>
   <p></p>
   <%= link_to "Back to listing", products_path %><br>
 </div>
