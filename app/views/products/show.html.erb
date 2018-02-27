@@ -1,7 +1,7 @@
 <div class="container">
   <h1><%= @product.title %></h1>
 
-  <p>Posted by: <%= @product.user.email %></p>
+  <p>Posted by: <%= @product.user.username %></p>
 
   <% unless @product.picture.nil? %>
     <%= cl_image_tag @product.picture, height: 300, width: 400, crop: :fill %>
@@ -13,7 +13,7 @@
   <h3>Reviews</h3>
   <% @product.reviews.each do |elt| %>
   <li class="list-group-item">
-    <h4><%= elt.user.email %></h4>
+    <h3><%= elt.user.username %></h3>
     <h4>
       <% elt.rating.times do %>
         <i class="fa fa-star gold"></i>
