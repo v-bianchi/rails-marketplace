@@ -1,9 +1,15 @@
 <div class="container">
   <h1><%= @product.title %></h1>
+
   <p>Posted by: <%= @product.user.email %></p>
-  <%= cl_image_tag @product.picture %>
+
+  <% unless @product.picture.nil? %>
+    <%= cl_image_tag @product.picture %>
+  <% end %>
   <br>
+
   <p><%= @product.description %></p>
+
   <h3>Reviews</h3>
   <% @product.reviews.each do |elt| %>
   <li class="list-group-item">
@@ -15,5 +21,9 @@
     <p><%= elt.content %></p>
   </li>
   <% end %>
+
+  <%= link_to "Back to index", products_path %><br>
+  <%= link_to "Edit", edit_product_path(@product) %><br>
+  <%= link_to "Delete", product_path(@product), method: :delete %><br>
 
 </div>
