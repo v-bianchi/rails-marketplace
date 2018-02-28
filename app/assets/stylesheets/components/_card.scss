@@ -6,13 +6,13 @@
   color: white;
   position: relative;
   margin: 10px 0;
-  border-radius: 3px;
+  border-radius: 5px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 .card-description {
   position: absolute;
-  bottom: 10px;
-  left: 20px;
+  top: 10px;
+  left: 10px;
 }
 .card-description h2 {
   font-size: 24px;

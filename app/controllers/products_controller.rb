@@ -31,22 +31,17 @@ class ProductsController < ApplicationController
 
   def update
     authorize @product
-      if @product.update!(product_params)
-        redirect_to product_path(@product)
-      else
-        render :update
-      end
-  end
-
-  def destroy
-    @product.destroy
-
-    redirect_to products_path
+    if @product.update!(product_params)
+      redirect_to product_path(@product)
+    else
+      render :update
+    end
   end
 
   def destroy
     authorize @product
     @product.destroy
+
     redirect_to products_path
   end
 
