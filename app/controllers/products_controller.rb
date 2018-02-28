@@ -30,21 +30,20 @@ class ProductsController < ApplicationController
   end
 
   def update
-
     authorize @product
-    if @product.update!(product_params)
-      redirect_to product_path(@product)
-    else
-      render :update
+      if @product.update!(product_params)
+        redirect_to product_path(@product)
+      else
+        render :update
+      end
     end
   end
-end
 
-def destroy
-  @product.destroy
+  def destroy
+    @product.destroy
 
-  redirect_to products_path
-end
+    redirect_to products_path
+  end
 
   def destroy
     authorize @product
@@ -52,15 +51,15 @@ end
     redirect_to products_path
   end
 
-private
+  private
 
-def product_params
-  params.require(:product).permit(:title, :category, :picture, :description)
-end
+  def product_params
+    params.require(:product).permit(:title, :category, :picture, :description)
+  end
 
   def find_product
     @product = Product.find(params[:id])
     authorize @product
   end
 
-end
+  end
