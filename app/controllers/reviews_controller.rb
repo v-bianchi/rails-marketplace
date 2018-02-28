@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-   before_action :set_product, only: [:new, :create]
+      before_action :set_product, only: [:new, :create]
 
   def new
     @product = Product.find(params[:product_id])
