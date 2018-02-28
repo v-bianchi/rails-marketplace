@@ -13,6 +13,9 @@
   <h3>Reviews</h3>
   <% @product.reviews.each do |elt| %>
   <li class="list-group-item">
+
+    <h3><%= elt.user.username %></h3>
+    <h4>
       <% elt.rating.times do %>
       <i class="fa fa-star gold"></i>
       <% end %>
