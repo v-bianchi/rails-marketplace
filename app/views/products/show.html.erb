@@ -14,26 +14,30 @@
   <h3>Reviews</h3>
   <% @product.reviews.each do |elt| %>
   <li class="list-group-item">
-
+    <%= cl_image_tag elt.user.profile_picture, class: "avatar" %>
     <h3><%= elt.user.username %></h3>
     <h4>
       <% elt.rating.times do %>
-      <i class="fa fa-star gold"></i>
+        <i class="fa fa-star gold"></i>
       <% end %>
     </h4>
     <p><%= elt.content %></p>
   </li>
   <% end %>
+
   <% if @product.user != current_user %>
-  <%= link_to "Add review", new_product_review_path(@product) %>
+    <%= link_to "Add review", new_product_review_path(@product) %>
   <% end %>
+
   <p></p>
   <% if policy(@product).edit? %>
-  <%= link_to "Edit", edit_product_path(@product) %><br>
+    <%= link_to "Edit", edit_product_path(@product) %><br>
   <% end %>
+
   <% if policy(@product).destroy? %>
-  <%= link_to "Delete", product_path(@product), method: :delete %>
+    <%= link_to "Delete", product_path(@product), method: :delete %>
   <% end %>
+
   <p></p>
   <%= link_to "Back to listing", products_path %><br>
 </div>
