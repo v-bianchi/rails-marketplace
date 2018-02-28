@@ -15,11 +15,11 @@ class ProductPolicy < ApplicationPolicy
   end
 
   def update?
-    user_is_owner?
+    user_is_owner_or_admin?
   end
 
   def destroy?
-    user_is_owner?
+    user_is_owner_or_admin?
   end
 
   private
