@@ -3,16 +3,39 @@ class ConversationsController < ApplicationController
 
   def index
     @users = User.all
-    @conversations = Conversation.all
+    @conversations = policy_scope(Conversation).all
   end
 
   def create
     if Conversation.between(params[:sender_id],params[:recipient_id]).present?
       @conversation = Conversation.between(params[:sender_id], params[:recipient_id]).first
+      authorize @conversation
     else
-      @conversation = Conversation.create!(conversation_params)
+      @conversation = Conversation.new(conversation_params)
+      authorize @conversation
+      @conversation.save!
     end
-    redirect_to conversation_messages_path(@conversation)
+    redirect_to conversation_path(@conversation)
+  end
+
+  def show
+    @conversation = Conversation.find(params[:id])
+    authorize @conversation
+    @messages = @conversation.messages
+    if @messages.length > 10
+      @over_ten = true
+      @messages = @messages[-10..-1]
+    end
+    if params[:m]
+      @over_ten = false
+      @messages = @conversation.messages
+    end
+    if @messages.last
+      if @messages.last.user_id != current_user.id
+        @messages.last.read = true;
+      end
+    end
+    @message = Message.new
   end
 
   private
