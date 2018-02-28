@@ -36,7 +36,6 @@ class ProductsController < ApplicationController
       else
         render :update
       end
-    end
   end
 
   def destroy
@@ -62,4 +61,4 @@ class ProductsController < ApplicationController
     authorize @product
   end
 
-  end
+end
