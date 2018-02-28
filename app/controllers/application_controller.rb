@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+<<<<<<< HEAD
  protect_from_forgery with: :exception
  before_action :authenticate_user!
 
@@ -20,4 +21,3 @@ class ApplicationController < ActionController::Base
    devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
  end
 
-end
