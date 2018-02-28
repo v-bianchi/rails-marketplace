@@ -14,8 +14,11 @@
   <h3>Reviews</h3>
   <% @product.reviews.each do |elt| %>
   <li class="list-group-item">
-    <%= cl_image_tag elt.user.profile_picture, class: "avatar" %>
-    <h3><%= elt.user.username %></h3>
+
+    <h4>
+      <%= cl_image_tag(elt.user.profile_picture, :width=>50, :height=>50, :gravity=>"face", :crop=>"thumb") %>
+      <%= elt.user.username %>
+    </h4>
     <h4>
       <% elt.rating.times do %>
         <i class="fa fa-star gold"></i>
