@@ -11,7 +11,7 @@ class RequestsController < ApplicationController
     @request = Request.new(request_params)
     @request.user = current_user
     authorize @request
-
+    @request.status = "pending"
     if @request.save!
       redirect_to conversations_path
     else
