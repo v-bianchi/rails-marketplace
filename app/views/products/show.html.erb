@@ -1,7 +1,7 @@
 <div class="container">
   <h1><%= @product.title %></h1>
   <p>Posted by: <%= @product.user.username %></p>
-  <%= link_to "Send a message", conversations_path(sender_id: current_user.id, recipient_id: @product.user.id), method: "post"%><br>
+
   <div class="flex-box">
 
     <div class="flex-item">

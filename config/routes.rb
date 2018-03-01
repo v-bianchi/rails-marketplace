@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :reviews, only: [:new, :create]
   end
 
-  resources :requests, only: [:index, :new, :create]
+  resources :requests, only: [:index, :new, :create, :update]
 
   resources :conversations, only: [:index, :create, :show] do
     resources :messages, only: [:new, :create]

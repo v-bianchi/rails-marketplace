@@ -15,6 +15,12 @@ class RequestsController < ApplicationController
     end
   end
 
+  def update
+    if @request.update!(request_params)
+      redirect_to conversations_path(current_user)
+    end
+  end
+
   private
 
   def request_params

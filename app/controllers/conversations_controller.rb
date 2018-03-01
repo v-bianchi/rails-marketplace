@@ -5,6 +5,9 @@ class ConversationsController < ApplicationController
     @users = User.all
     @conversations = policy_scope(Conversation).all
     @products = current_user.products
+    @sent_requests = Request.where(user: current_user)
+    @received_requests = Request.joins(:product).where(products: {user: current_user})
+    @request = Request.new
   end
 
   def create

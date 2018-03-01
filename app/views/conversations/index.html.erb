@@ -1,10 +1,11 @@
-<div class="container">
+<div class="container padded-top">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-xs-12 col-md-6">
       <h3>Inbox</h3>
       <div class="list-group">
-        <div class="list-group-item">
-          <% @conversations.each do |conversation| %>
+
+        <% @conversations.each do |conversation| %>
+          <div class="list-group-item">
             <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
               <% if conversation.sender_id == current_user.id %>
                 <% recipient = User.find(conversation.recipient_id) %>
@@ -14,13 +15,69 @@
               <%= cl_image_tag(recipient.profile_picture, :width=>50, :height=>50, :gravity=>"face", :crop=>"thumb") %>
               <%= link_to recipient.username,   conversation_path(conversation)%>
             <% end %>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
+
       </div>
     </div>
 
-    <div class="col-md-6">
-      <h3>My Requests</h3>
+    <div class="col-xs-12 col-md-6">
+      <h3>Requests sent</h3>
+      <div class="list-group">
+        <% @sent_requests.each do |elt| %>
+          <div class="list-group-item">
+            <p>
+              You requested to rent <strong><%= link_to elt.product.title, product_path(elt.product) %></strong> from <strong><%= elt.product.user.username %></strong>
+            </p>
+            <p>Status:
+              <% if elt.status == "approved" %>
+                <span class="approved">approved <i class="fa fa-check"></i> </span>
+                <span><%= link_to "Message user", conversations_path(sender_id: current_user.id, recipient_id: elt.product.user.id), method: "post"%><br></span>
+              <% end %>
+              <% if elt.status == "denied" %>
+                <span class="denied">denied <i class="fa fa-times"></i></span>
+              <% end %>
+              <% if elt.status == "pending" %>
+                <span>pending <i class="fa fa-hourglass-half"></i></span>
+              <% end %>
+            </p>
+          </div>
+        <% end %>
+      </div>
+      <h3>Requests received</h3>
+      <div class="list-group">
+        <% @received_requests.each do |elt| %>
+          <div class="list-group-item">
+            <p>
+              <strong><%= elt.user.username %></strong> requested to rent <strong><%= elt.product.title %></strong> from you
+            </p>
+            <p>Status:
+              <% if elt.status == "approved" %>
+                <span class="approved">approved <i class="fa fa-check"></i> </span>
+                <span><%= link_to "Message user", conversations_path(sender_id: current_user.id, recipient_id: elt.product.user.id), method: "post"%><br></span>
+              <% end %>
+              <% if elt.status == "denied" %>
+                <span class="denied">denied <i class="fa fa-times"></i></span>
+              <% end %>
+              <% if elt.status == "pending" %>
+                <span>pending <i class="fa fa-hourglass-half"></i></span>
+                <%= form_for @request do |f| %>
+                  <%= f.number_field :user_id, value: elt.user_id, type: "hidden" %>
+                  <%= f.number_field :product_id, value: elt.product_id, type: "hidden" %>
+                  <%= f.text_field :status, value: "accepted", type: "hidden" %>
+                  <%= f.submit "Accept", class: "btn btn-success btn-xs" %>
+                <% end %>
+                <%= form_for @request do |f| %>
+                  <%= f.number_field :user_id, value: elt.user_id, type: "hidden" %>
+                  <%= f.number_field :product_id, value: elt.product_id, type: "hidden" %>
+                  <%= f.text_field :status, value: "denied", type: "hidden" %>
+                  <%= f.submit "Deny", class: "btn btn-danger btn-xs" %>
+                <% end %>
+              <% end %>
+            </p>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 
