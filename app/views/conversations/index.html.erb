@@ -1,8 +1,8 @@
-<div class=”container”>
-  <h3>Mailbox</h3>
+<div class="container padded-top">
+  <h3>Inbox</h3>
 
-  <div class=”list-group”>
-    <div class=”list-group-item”>
+  <div class="list-group">
+    <div class="list-group-item">
     <% @conversations.each do |conversation| %>
       <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
         <% if conversation.sender_id == current_user.id %>
@@ -10,10 +10,33 @@
         <% else %>
           <% recipient = User.find(conversation.sender_id) %>
         <% end %>
-        <%= link_to recipient.first_name,   conversation_messages_path(conversation)%>
+        <%= cl_image_tag(recipient.profile_picture, :width=>50, :height=>50, :gravity=>"face", :crop=>"thumb") %>
+        <%= link_to recipient.username,   conversation_path(conversation)%>
       <% end %>
     <% end %>
     </div>
+  </div>
+</div>
+
+<div class="container padded-top">
+  <h3>My capybaras</h3>
+
+  <div class="row">
+    <% @products.each do |elt| %>
+      <div class="col-xs-12 col-sm-4">
+
+          <% placeholder_image = "no_image_available" %>
+          <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= elt.picture.file ? cl_image_path(elt.picture) : cl_image_path(placeholder_image) %>')">
+
+          <div class="card-description">
+            <h2><%= elt.title %></h2>
+          </div>
+          <%= link_to product_path(elt) do %>
+            <div class="card-link"></div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 
@@ -27,5 +50,5 @@
         </div>
       <% end %>
     <% end %>
-  </div> -->
-</div>
+  </div>
+</div> -->
