@@ -61,15 +61,15 @@
               <% end %>
               <% if elt.status == "pending" %>
                 <span>pending <i class="fa fa-hourglass-half"></i></span>
-                <%= form_for @request do |f| %>
-                  <%= f.number_field :user_id, value: elt.user_id, type: "hidden" %>
-                  <%= f.number_field :product_id, value: elt.product_id, type: "hidden" %>
-                  <%= f.text_field :status, value: "accepted", type: "hidden" %>
+                <%= form_for elt do |f| %>
+                  <!--<%= f.number_field :user_id, value: elt.user_id, type: "hidden" %>
+                  <%= f.number_field :product_id, value: elt.product_id, type: "hidden" %>-->
+                  <%= f.text_field :status, value: "approved", type: "hidden" %>
                   <%= f.submit "Accept", class: "btn btn-success btn-xs" %>
                 <% end %>
-                <%= form_for @request do |f| %>
-                  <%= f.number_field :user_id, value: elt.user_id, type: "hidden" %>
-                  <%= f.number_field :product_id, value: elt.product_id, type: "hidden" %>
+                <%= form_for elt do |f| %>
+                  <!--<%= f.number_field :user_id, value: elt.user_id, type: "hidden" %>
+                  <%= f.number_field :product_id, value: elt.product_id, type: "hidden" %>-->
                   <%= f.text_field :status, value: "denied", type: "hidden" %>
                   <%= f.submit "Deny", class: "btn btn-danger btn-xs" %>
                 <% end %>

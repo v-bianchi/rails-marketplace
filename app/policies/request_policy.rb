@@ -9,7 +9,7 @@ class RequestPolicy < ApplicationPolicy
     true
   end
 
-  def edit?
+  def update?
     true
   end
 
