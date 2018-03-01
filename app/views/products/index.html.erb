@@ -3,23 +3,27 @@
 </div>
 
 <div class="container padded-top">
-
   <div class="row">
     <% @products.each do |elt| %>
-      <div class="col-xs-12 col-sm-4">
-
-          <% placeholder_image = "no_image_available" %>
-          <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= elt.picture.file ? cl_image_path(elt.picture) : cl_image_path(placeholder_image) %>')">
-
-          <div class="card-description">
-            <h2><%= elt.title %></h2>
-          </div>
-          <%= link_to product_path(elt) do %>
-            <div class="card-link"></div>
-          <% end %>
+    <div class="col-xs-12 col-sm-4">
+      <div class="white-box">
+        <% placeholder_image = "no_image_available" %>
+        <div class="product-picture" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= elt.picture.file ? cl_image_path(elt.picture) : cl_image_path(placeholder_image) %>')">
         </div>
+        <div class="card-description">
+          <h2> Name: <%= elt.title %></h2>
+        </div>
+        <div class="card-price">
+          <h2> Price: <%= elt.price %> </h2>
+        </div>
+        <div>
+            <a class="main-btn product-btn" href="/products">More details</a>
+        </div>
+          <%= link_to product_path(elt) do %>
+        <div class="card-link"></div>
+        <% end %>
       </div>
+    </div>
     <% end %>
   </div>
-
 </div>
