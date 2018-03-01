@@ -13,7 +13,7 @@
                 <% recipient = User.find(conversation.sender_id) %>
               <% end %>
               <%= cl_image_tag(recipient.profile_picture, :width=>50, :height=>50, :gravity=>"face", :crop=>"thumb") %>
-              <%= link_to recipient.username,   conversation_path(conversation)%>
+              <%= link_to recipient.username, conversation_path(conversation) %>
             <% end %>
           </div>
         <% end %>
@@ -54,7 +54,7 @@
             <p>Status:
               <% if elt.status == "approved" %>
                 <span class="approved">approved <i class="fa fa-check"></i> </span>
-                <span><%= link_to "Message user", conversations_path(sender_id: current_user.id, recipient_id: elt.product.user.id), method: "post"%><br></span>
+                <span><%= link_to "Message user", conversations_path(sender_id: current_user.id, recipient_id: elt.user.id), method: "post"%><br></span>
               <% end %>
               <% if elt.status == "denied" %>
                 <span class="denied">denied <i class="fa fa-times"></i></span>
