@@ -6,14 +6,14 @@
 
     <div class="flex-item">
       <% unless @product.picture.nil? %>
-        <%= cl_image_tag @product.picture, height: 300, width: 400, crop: :fill %>
+        <%= cl_image_tag @product.picture, height: 300, width: 400, crop: :fit %>
       <% end %>
     </div>
 
     <div class="flex-item">
       <div class="booking-box">
         <h3>Rent this Capybara</h3>
-        <h4>Hourly rate: $ <%= rand(20..5000) %></h4>
+        <h4>Hourly rate: $ <%= @product.price %></h4>
         <p>To rent this Capybara just click 'rent' and the owner will then accept or decline your request.</p>
         <%= form_for @product do |f| %>
           <%= f.number_field :user_id, value: @product.user_id, type: "hidden" %>
