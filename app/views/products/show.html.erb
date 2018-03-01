@@ -1,13 +1,29 @@
 <div class="container">
   <h1><%= @product.title %></h1>
-
   <p>Posted by: <%= @product.user.username %></p>
   <%= link_to "Send a message", conversations_path(sender_id: current_user.id, recipient_id: @product.user.id), method: "post"%><br>
+  <div class="flex-box">
 
-  <% unless @product.picture.nil? %>
-  <%= cl_image_tag @product.picture, height: 300, width: 400, crop: :fill %>
-  <% end %>
-  <br>
+    <div class="flex-item">
+      <% unless @product.picture.nil? %>
+        <%= cl_image_tag @product.picture, height: 300, width: 400, crop: :fill %>
+      <% end %>
+    </div>
+
+    <div class="flex-item">
+      <div class="booking-box">
+        <h3>Rent this Capybara</h3>
+        <h4>Hourly rate: $ <%= rand(20..5000) %></h4>
+        <p>To rent this Capybara just click 'rent' and the owner will then accept or decline your request.</p>
+        <%= form_for @product do |f| %>
+          <%= f.number_field :user_id, value: @product.user_id, type: "hidden" %>
+          <%= f.number_field :current_user, value: current_user.id, type: "hidden" %>
+          <%= f.submit "Rent", class: "btn btn-success btn-lg" %>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
 
   <p><%= @product.description %></p>
 
