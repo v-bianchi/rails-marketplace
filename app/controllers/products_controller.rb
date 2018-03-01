@@ -17,6 +17,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = current_user.products.build(product_params)
+    @product.available = true
     authorize @product
     if @product.save!
       redirect_to product_path(@product)
@@ -31,29 +32,24 @@ class ProductsController < ApplicationController
 
   def update
     authorize @product
-      if @product.update!(product_params)
-        redirect_to product_path(@product)
-      else
-        render :update
-      end
-  end
-
-  def destroy
-    @product.destroy
-
-    redirect_to products_path
+    if @product.update!(product_params)
+      redirect_to product_path(@product)
+    else
+      render :update
+    end
   end
 
   def destroy
     authorize @product
     @product.destroy
+
     redirect_to products_path
   end
 
   private
 
   def product_params
-    params.require(:product).permit(:title, :category, :picture, :description)
+    params.require(:product).permit(:title, :category, :picture, :description, :price, :available)
   end
 
   def find_product

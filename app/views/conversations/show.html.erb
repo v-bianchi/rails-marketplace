@@ -9,7 +9,7 @@
       <div class="">
         <div class="">
           <div class="">
-
+            <%= cl_image_tag(message.user.profile_picture, :width=>50, :height=>50, :gravity=>"face", :crop=>"thumb") %>
             <strong><%= user.username %></strong>
             <%= message.message_time %>
           </div>
@@ -25,13 +25,14 @@
   <% end %>
 </div>
 
-<%= form_for [@conversation, @message], html: {class: ""} do |f| %>
-  <div class="">
-    <%= f.text_area :body, class: "form-control" %>
-  </div>
-    <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
-  <div>
-    <%= f.submit "Send", class: "btn btn-primary" %>
-  </div>
-
-<% end %>
+<div class="container">
+  <%= form_for [@conversation, @message], html: {class: ""} do |f| %>
+    <div class="">
+      <%= f.text_area :body, class: "form-control" %>
+    </div>
+      <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
+    <div>
+      <%= f.submit "Send", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
