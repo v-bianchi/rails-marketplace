@@ -4,6 +4,7 @@ class ConversationsController < ApplicationController
   def index
     @users = User.all
     @conversations = policy_scope(Conversation).all
+    @products = current_user.products
   end
 
   def create
