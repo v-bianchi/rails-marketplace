@@ -19,10 +19,18 @@ class RequestsController < ApplicationController
     end
   end
 
+  def update
+    request = Request.find(params[:id])
+    authorize request
+    if request.update!(request_params)
+      redirect_to conversations_path(current_user)
+    end
+  end
+
   private
 
   def request_params
-    params.require(:request).permit(:status, :user_id, :product_id)
+    params.require(:request).permit(:status, :user_id, :product_id, :id)
   end
 
 end
