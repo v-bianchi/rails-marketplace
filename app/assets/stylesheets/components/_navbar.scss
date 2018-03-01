@@ -35,11 +35,23 @@
   padding: 0 20px;
 }
 
+
 /* Navbar link */
 .navbar-wagon-link {
   color: #616668;
   font-size: 14px;
+
 }
+
+.navbar-wagon-item-1 {
+
+}
+
+.navbar-wagon-item-2 {
+background-color: green;
+border-radius: 12px;
+}
+
 .navbar-wagon-link:hover {
   color: #da552f;
   text-decoration: none;
