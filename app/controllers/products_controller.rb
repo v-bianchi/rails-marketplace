@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
 
   def show
     authorize @product
+    @request = Request.new
   end
 
   def new
