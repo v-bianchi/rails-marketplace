@@ -32,12 +32,12 @@
               You requested to rent <strong><%= link_to elt.product.title, product_path(elt.product) %></strong> from <strong><%= elt.product.user.username %></strong>
             </p>
             <p>Status:
-              <% if elt.status == "approved" %>
-                <span class="approved">approved <i class="fa fa-check"></i> </span>
+              <% if elt.status == "accepted" %>
+                <span class="accepted">accepted <i class="fa fa-check"></i> </span>
                 <span><%= link_to "Message user", conversations_path(sender_id: current_user.id, recipient_id: elt.product.user.id), method: "post"%><br></span>
               <% end %>
-              <% if elt.status == "denied" %>
-                <span class="denied">denied <i class="fa fa-times"></i></span>
+              <% if elt.status == "declined" %>
+                <span class="declined">declined <i class="fa fa-times"></i></span>
               <% end %>
               <% if elt.status == "pending" %>
                 <span>pending <i class="fa fa-hourglass-half"></i></span>
