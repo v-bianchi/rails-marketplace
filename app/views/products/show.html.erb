@@ -2,6 +2,10 @@
   <h1><%= @product.title %></h1>
   <p>Posted by: <%= @product.user.username %></p>
 
+  <% unless @product.available %>
+    <h3>This capybara is currently unavailable</h3>
+  <% end %>
+
   <div class="flex-box">
 
     <div class="flex-item">
@@ -12,13 +16,32 @@
 
     <div class="flex-item">
       <div class="booking-box">
-        <h3>Rent this Capybara</h3>
-        <h4>Hourly rate: $ <%= @product.price %></h4>
-        <p>To rent this Capybara just click 'rent' and the owner will then accept or decline your request.</p>
-        <%= form_for @request do |f| %>
-          <%= f.number_field :user_id, value: @product.user_id, type: "hidden" %>
-          <%= f.number_field :product_id, value: @product.id, type: "hidden" %>
-          <%= f.submit "Rent", class: "btn btn-success btn-lg" %>
+        <% if @product.user != current_user %>
+          <h3>Rent this capybara</h3>
+          <h4>Hourly rate: $ <%= @product.price %></h4>
+          <% if @product.available %>
+            <% if @current_user_requested %>
+              <button class="btn btn-success btn-lg disabled">Request sent</button>
+              <p>Check your <%= link_to "dashboard", conversations_path(current_user) %> to see the status of your request.</p>
+            <% else %>
+              <p>To rent this Capybara just click 'send request' and the owner will then accept or decline it.</p>
+              <%= form_for @request do |f| %>
+                <%= f.number_field :user_id, value: @product.user_id, type: "hidden" %>
+                <%= f.number_field :product_id, value: @product.id, type: "hidden" %>
+                <%= f.submit "Send request", class: "btn btn-success btn-lg" %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <button class="btn btn-success btn-lg disabled">Unavailable</button>
+          <% end %>
+        <% else %>
+          <h3>This capybara is yours!</h3>
+          <% if policy(@product).edit? %>
+            <%= link_to "Edit", edit_product_path(@product), class: "btn btn-primary-lg" %><br>
+          <% end %>
+          <% if policy(@product).destroy? %>
+            <%= link_to "Delete", product_path(@product), method: :delete, class: "btn btn-primary-lg" %>
+          <% end %>
         <% end %>
       </div>
     </div>
@@ -49,13 +72,7 @@
   <% end %>
 
   <p></p>
-  <% if policy(@product).edit? %>
-    <%= link_to "Edit", edit_product_path(@product) %><br>
-  <% end %>
 
-  <% if policy(@product).destroy? %>
-    <%= link_to "Delete", product_path(@product), method: :delete %>
-  <% end %>
 
   <p></p>
   <%= link_to "Back to listing", products_path %><br>
