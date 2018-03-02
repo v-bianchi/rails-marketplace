@@ -9,6 +9,7 @@ class ProductsController < ApplicationController
   def show
     authorize @product
     @request = Request.new
+    @current_user_requested = Request.where(product_id: @product_id, user_id: current_user.id).empty?
   end
 
   def new
