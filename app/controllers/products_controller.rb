@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
     @product = current_user.products.build(product_params)
     @product.available = true
     authorize @product
-    if @product.save!
+    if @product.save
       redirect_to product_path(@product)
     else
       render :new
@@ -34,7 +34,7 @@ class ProductsController < ApplicationController
 
   def update
     authorize @product
-    if @product.update!(product_params)
+    if @product.update(product_params)
       redirect_to product_path(@product)
     else
       render :update
