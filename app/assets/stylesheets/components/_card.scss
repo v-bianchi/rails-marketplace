@@ -21,6 +21,7 @@ body {
   height: 190px;
   margin: 0 auto;
   background-size: cover;
+
   position: relative;
   z-index: 0; position: relative;
 
@@ -82,6 +83,7 @@ body {
   border-radius: 50px;
   position: absolute;
   top:20px;
+  width: 103px;
   right: 2px;
   color: white;
   font-weight: bold;
@@ -89,7 +91,6 @@ body {
   transform: rotate(45deg);
   z-index: 400;
 }
-
 
 .sold-icon-not-available {
   padding: 15px;
