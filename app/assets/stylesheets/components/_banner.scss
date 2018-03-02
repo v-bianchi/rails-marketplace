@@ -54,3 +54,7 @@
   .lines-condensed p {
     margin-bottom: 0px;
   }
+
+  .full-height {
+    min-height: calc(100vh - 180px);
+  }
