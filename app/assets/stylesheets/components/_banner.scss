@@ -30,8 +30,17 @@
     background-position: bottom;
   }
 
+  .padded-top-bottom {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
   .padded-top {
     padding-top: 80px;
+  }
+
+  .inner-padding > * {
+    padding: 10px;
   }
 
   .container h1 {
@@ -40,4 +49,8 @@
 
   .simple_form.new_review {
     text-align: center;
+  }
+
+  .lines-condensed p {
+    margin-bottom: 0px;
   }
