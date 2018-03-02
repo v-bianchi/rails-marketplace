@@ -1,12 +1,12 @@
 <div class="container">
   <h1><%= @product.title %></h1>
-  <p>Posted by: <%= @product.user.username %></p>
+  <h5> <strong> Posted by: </strong> <%= @product.user.username %></h5>
 
   <div class="flex-box">
 
     <div class="flex-item">
       <% unless @product.picture.nil? %>
-        <%= cl_image_tag @product.picture, height: 300, width: 400, crop: :fit %>
+      <%= cl_image_tag @product.picture, height: 300, width: 400, crop: :fit %>
       <% end %>
     </div>
 
@@ -16,47 +16,50 @@
         <h4>Hourly rate: $ <%= @product.price %></h4>
         <p>To rent this Capybara just click 'rent' and the owner will then accept or decline your request.</p>
         <%= form_for @request do |f| %>
-          <%= f.number_field :user_id, value: @product.user_id, type: "hidden" %>
-          <%= f.number_field :product_id, value: @product.id, type: "hidden" %>
-          <%= f.submit "Rent", class: "btn btn-success btn-lg" %>
+        <%= f.number_field :user_id, value: @product.user_id, type: "hidden" %>
+        <%= f.number_field :product_id, value: @product.id, type: "hidden" %>
+        <%= f.submit "Rent", class: "btn btn-success btn-lg" %>
         <% end %>
       </div>
     </div>
 
   </div>
-
-  <p><%= @product.description %></p>
-
-  <h3>Reviews</h3>
+    <h5> <strong> Description: </strong><%= @product.description %></h5>
+  <h2>Reviews</h3>
   <% @product.reviews.each do |elt| %>
   <li class="list-group-item">
 
-    <h4>
+    <h5>
       <%= cl_image_tag(elt.user.profile_picture, :width=>50, :height=>50, :gravity=>"face", :crop=>"thumb") %>
       <%= elt.user.username %>
-    </h4>
-    <h4>
+    </h5>
+    <h5>
       <% elt.rating.times do %>
-        <i class="fa fa-star gold"></i>
+      <i class="fa fa-star gold"></i>
       <% end %>
-    </h4>
+    </h5>
     <p><%= elt.content %></p>
   </li>
   <% end %>
-
-  <% if @product.user != current_user %>
+  <div class="flexbox rating">
+    <% if @product.user != current_user %>
     <%= link_to "Add review", new_product_review_path(@product) %>
-  <% end %>
+    <% end %>
 
-  <p></p>
-  <% if policy(@product).edit? %>
+    <div>
+    <% if policy(@product).edit? %>
     <%= link_to "Edit", edit_product_path(@product) %><br>
-  <% end %>
+    <% end %>
+    </a>
+  <div>
 
-  <% if policy(@product).destroy? %>
-    <%= link_to "Delete", product_path(@product), method: :delete %>
-  <% end %>
-
-  <p></p>
-  <%= link_to "Back to listing", products_path %><br>
+    <% if policy(@product).destroy? %>
+      <%= link_to "Delete", product_path(@product), method: :delete %>
+      <% end %>
+    </div>
+  <div>
+    </div>
+    <p></p>
+    <%= link_to "Back to listing", products_path %><br>
+  </div>
 </div>
