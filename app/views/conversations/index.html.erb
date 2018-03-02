@@ -1,8 +1,8 @@
-<div class="container padded-top">
-  <div class="row">
-    <div class="col-xs-12 col-md-6">
+<div class="container">
+  <div class="row text-center padded-top">
+    <div class="col-xs-12">
       <h3>Inbox</h3>
-      <div class="list-group">
+      <div class="list-group text-left">
 
         <% @conversations.each do |conversation| %>
           <div class="list-group-item">
@@ -20,12 +20,14 @@
 
       </div>
     </div>
+  </div>
 
-    <div class="col-xs-12 col-md-6">
+  <div class="row padded-top">
+    <div class="col-xs-12 col-md-6 text-center">
       <h3>Requests sent</h3>
       <div class="list-group">
         <% @sent_requests.each do |elt| %>
-          <div class="list-group-item">
+          <div class="list-group-item text-left lines-condensed">
             <p>
               You requested to rent <strong><%= link_to elt.product.title, product_path(elt.product) %></strong> from <strong><%= elt.product.user.username %></strong>
             </p>
@@ -44,34 +46,33 @@
           </div>
         <% end %>
       </div>
+    </div>
+
+    <div class="col-xs-12 col-md-6 text-center">
       <h3>Requests received</h3>
       <div class="list-group">
         <% @received_requests.each do |elt| %>
-          <div class="list-group-item">
+          <div class="list-group-item text-left lines-condensed">
             <p>
               <strong><%= elt.user.username %></strong> requested to rent <strong><%= elt.product.title %></strong> from you
             </p>
             <p>Status:
-              <% if elt.status == "approved" %>
-                <span class="approved">approved <i class="fa fa-check"></i> </span>
+              <% if elt.status == "accepted" %>
+                <span class="accepted">accepted <i class="fa fa-check"></i> </span>
                 <span><%= link_to "Message user", conversations_path(sender_id: current_user.id, recipient_id: elt.user.id), method: "post"%><br></span>
               <% end %>
-              <% if elt.status == "denied" %>
-                <span class="denied">denied <i class="fa fa-times"></i></span>
+              <% if elt.status == "declined" %>
+                <span class="declined">declined <i class="fa fa-times"></i></span>
               <% end %>
               <% if elt.status == "pending" %>
-                <span>pending <i class="fa fa-hourglass-half"></i></span>
+                <span>pending <i class="fa fa-hourglass-half"></i>
                 <%= form_for elt do |f| %>
-                  <!--<%= f.number_field :user_id, value: elt.user_id, type: "hidden" %>
-                  <%= f.number_field :product_id, value: elt.product_id, type: "hidden" %>-->
-                  <%= f.text_field :status, value: "approved", type: "hidden" %>
+                  <%= f.text_field :status, value: "accepted", type: "hidden" %>
                   <%= f.submit "Accept", class: "btn btn-success btn-xs" %>
                 <% end %>
                 <%= form_for elt do |f| %>
-                  <!--<%= f.number_field :user_id, value: elt.user_id, type: "hidden" %>
-                  <%= f.number_field :product_id, value: elt.product_id, type: "hidden" %>-->
-                  <%= f.text_field :status, value: "denied", type: "hidden" %>
-                  <%= f.submit "Deny", class: "btn btn-danger btn-xs" %>
+                  <%= f.text_field :status, value: "declined", type: "hidden" %>
+                  <%= f.submit "Decline", class: "btn btn-danger btn-xs" %>
                 <% end %>
               <% end %>
             </p>
@@ -81,18 +82,36 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
+  <div class="row text-center padded-top-bottom">
+    <div class="col-xs-12">
       <h3>My capybaras</h3>
       <% @products.each do |elt| %>
         <div class="col-xs-12 col-sm-4">
+          <div class="white-box">
+            <p class="category"></p>
+            <% if elt.available %>
+            <div class="sold-icon-available">
+              Available
+            </div>
+            <% else %>
+            <div class="sold-icon-not-available">
+              Not available
+            </div>
+            <% end %>
             <% placeholder_image = "no_image_available" %>
-            <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= elt.picture.file ? cl_image_path(elt.picture) : cl_image_path(placeholder_image) %>')">
+            <div class="product-picture" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= elt.picture.file ? cl_image_path(elt.picture) : cl_image_path(placeholder_image) %>')">
+            </div>
             <div class="card-description">
-              <h2><%= elt.title %></h2>
+              <h2> <strong> Name: </strong> <%= elt.title.capitalize %></h2>
+            </div>
+            <div class="card-price">
+              <h2> <strong> Price: </strong>$ <%= elt.price %> </h2>
+            </div>
+            <div>
+              <a class="main-btn product-btn" href="/products">Details</a>
             </div>
             <%= link_to product_path(elt) do %>
-              <div class="card-link"></div>
+            <div class="card-link"></div>
             <% end %>
           </div>
         </div>
