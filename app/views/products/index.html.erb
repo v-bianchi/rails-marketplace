@@ -8,19 +8,29 @@
     <% @products.each do |elt| %>
     <div class="col-xs-12 col-sm-4">
       <div class="white-box">
+        <p class="category"></p>
+        <% if elt.available %>
+        <div class="sold-icon-available">
+          Available
+        </div>
+        <% else %>
+        <div class="sold-icon-not-available">
+          Not available
+        </div>
+        <% end %>
         <% placeholder_image = "no_image_available" %>
         <div class="product-picture" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= elt.picture.file ? cl_image_path(elt.picture) : cl_image_path(placeholder_image) %>')">
         </div>
         <div class="card-description">
-          <h2> Name: <%= elt.title %></h2>
+          <h2> <strong> Name: </strong> <%= elt.title.capitalize %></h2>
         </div>
         <div class="card-price">
-          <h2> Price: <%= elt.price %> </h2>
+          <h2> <strong> Price: </strong>$ <%= elt.price %> </h2>
         </div>
         <div>
-            <a class="main-btn product-btn" href="/products">More details</a>
+          <a class="main-btn product-btn" href="/products">Details</a>
         </div>
-          <%= link_to product_path(elt) do %>
+        <%= link_to product_path(elt) do %>
         <div class="card-link"></div>
         <% end %>
       </div>
